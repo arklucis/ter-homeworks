@@ -8,6 +8,7 @@ resource "yandex_vpc_subnet" "develop" {
   v4_cidr_blocks = var.default_cidr
 }
 
+
 module "test-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
   env_name       = "develop"
@@ -46,4 +47,12 @@ module "example-vm" {
 
   labels = { project = "analytics" }
 
+}
+
+data "template_file" "cloudinit" {
+  template = file("./cloud-init.yml")
+
+  vars = {
+    ssh_public_key = file(var.vms_ssh_root_key)
+  }
 }
