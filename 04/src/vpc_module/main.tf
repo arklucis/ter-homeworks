@@ -18,12 +18,3 @@ resource "yandex_vpc_subnet" "vpc" {
   v4_cidr_blocks = var.default_cidr
 }
 
-/*
-output "vpc_id" {
-  value = yandex_vpc_network.vpc.id
-}
-
-output "subnet_id" {
-  value = yandex_vpc_subnet.vpc.id
-}
-*/
