@@ -1,6 +1,6 @@
 #cloud-config
 users:
-  - name: ubuntu
+  - name: root
     groups: sudo
     shell: /bin/bash
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
@@ -10,4 +10,3 @@ package_update: true
 package_upgrade: false
 packages:
   - nano
-  - nginx
