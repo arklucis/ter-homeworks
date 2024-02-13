@@ -19,13 +19,13 @@ module "my_vpc" {
 
 module "test-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
-  env_name       = "develop"
+  env_name       = "vector"
   network_id     = module.my_vpc.vpc_id #yandex_vpc_network.develop.id
   subnet_zones   = ["ru-central1-a"]
   subnet_ids     = [module.my_vpc.subnet_id] #[yandex_vpc_subnet.develop.id]
-  instance_name  = "web"
+  instance_name  = "host"
   instance_count = 1
-  image_family   = "ubuntu-2004-lts"
+  image_family   = "centos-7"
   public_ip      = true
 
   metadata = {
@@ -39,13 +39,13 @@ module "test-vm" {
 
 module "example-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
-  env_name       = "stage"
+  env_name       = "clickhouse"
   network_id     = module.my_vpc.vpc_id #yandex_vpc_network.develop.id
   subnet_zones   = ["ru-central1-a"]
   subnet_ids     = [module.my_vpc.subnet_id] #[yandex_vpc_subnet.develop.id]
-  instance_name  = "web-stage"
+  instance_name  = "host"
   instance_count = 1
-  image_family   = "ubuntu-2004-lts"
+  image_family   = "centos-7"
   public_ip      = true
 
   metadata = {

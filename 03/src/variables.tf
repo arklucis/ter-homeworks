@@ -30,7 +30,7 @@ variable "vm_count" {
 
 variable "number_of_drives" {
   type    = number
-  default = 3
+  default = 2
 }
 
 
