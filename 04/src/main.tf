@@ -16,6 +16,42 @@ module "my_vpc" {
   #zone     = "ru-central1-a"
 }
 
+data "yandex_compute_image" "centos-7" {
+  family = "centos-7"
+}
+
+resource "yandex_compute_instance" "lighthouse" {
+  count       = 1
+  name        = "ligthouse"
+  platform_id = "standard-v1"
+
+  resources {
+    cores         = 2
+    memory        = 4
+    core_fraction = 20
+  }
+
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.centos-7.image_id
+    }
+  }
+
+  scheduling_policy {
+    preemptible = true
+  }
+
+  network_interface {
+    subnet_id = module.my_vpc.subnet_id
+    nat       = var.vm_resource[0].public_ip
+  }
+
+  metadata = {
+    user-data          = data.template_file.cloudinit.rendered
+    serial-port-enable = 1
+  }
+
+}
 
 module "test-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
@@ -29,8 +65,7 @@ module "test-vm" {
   public_ip      = true
 
   metadata = {
-    user-data          = data.template_file.cloudinit.rendered #Для демонстрации №3
-    serial-port-enable = 1
+    user-data = data.template_file.cloudinit.rendered
   }
 
   labels = { project = "marketing" }
@@ -49,7 +84,7 @@ module "example-vm" {
   public_ip      = true
 
   metadata = {
-    user-data          = data.template_file.cloudinit.rendered #Для демонстрации №3
+    user-data          = data.template_file.cloudinit.rendered
     serial-port-enable = 1
   }
 

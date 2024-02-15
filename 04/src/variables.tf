@@ -41,9 +41,26 @@ variable "vpc_name" {
 
 variable "vms_ssh_root_key" {
   type        = string
-  default     = "/home/achernov/.ssh/id_ed25519.pub"
+  default     = "/root/.ssh/id_ed25519.pub"
   description = "ssh-keygen -t ed25519"
 }
+
+variable "vm_resource" {
+  type = list(object({
+    public_ip   = bool
+    platform    = string
+    preemptible = bool
+  }))
+  default = [
+    {
+      public_ip   = true
+      platform    = "standard-v1"
+      preemptible = true
+
+    }
+  ]
+}
+
 
 /*
 ###example vm_web var
