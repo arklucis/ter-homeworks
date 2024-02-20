@@ -32,5 +32,4 @@ resource "yandex_compute_instance" "web" {
 
   metadata = var.metadata
 
-
 }

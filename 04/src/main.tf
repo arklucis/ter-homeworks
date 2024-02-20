@@ -20,39 +20,23 @@ data "yandex_compute_image" "centos-7" {
   family = "centos-7"
 }
 
-resource "yandex_compute_instance" "lighthouse" {
-  count       = 1
-  name        = "ligthouse"
-  platform_id = "standard-v1"
-
-  resources {
-    cores         = 2
-    memory        = 4
-    core_fraction = 20
-  }
-
-  boot_disk {
-    initialize_params {
-      image_id = data.yandex_compute_image.centos-7.image_id
-    }
-  }
-
-  scheduling_policy {
-    preemptible = true
-  }
-
-  network_interface {
-    subnet_id = module.my_vpc.subnet_id
-    nat       = var.vm_resource[0].public_ip
-  }
+module "random_vm" {
+  source       = "./local_modules/random_vm/"
+  env_name     = "ligthouse"
+  subnet_id    = [module.my_vpc.subnet_id]
+  subnet_zones = ["ru-central1-a"]
+  nat          = var.vm_resource[0].public_ip
+  image_family = "centos-7"
 
   metadata = {
     user-data          = data.template_file.cloudinit.rendered
     serial-port-enable = 1
   }
 
+  labels = { project = "monitoring" }
 }
 
+/*
 module "test-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
   env_name       = "vector"
@@ -71,6 +55,7 @@ module "test-vm" {
   labels = { project = "marketing" }
 
 }
+*/
 
 module "example-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
@@ -91,6 +76,7 @@ module "example-vm" {
   labels = { project = "analytics" }
 
 }
+
 
 data "template_file" "cloudinit" {
   template = file("./cloud-init.yml")

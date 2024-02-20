@@ -9,3 +9,4 @@ package_update: true
 package_upgrade: false
 packages:
   - nano
+  - telnet
