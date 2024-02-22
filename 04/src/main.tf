@@ -22,10 +22,10 @@ data "yandex_compute_image" "centos-7" {
 
 module "random_vm" {
   source       = "./local_modules/random_vm/"
-  env_name     = "ligthouse"
+  vm_name      = "ligthouse"
   subnet_id    = [module.my_vpc.subnet_id]
   subnet_zones = ["ru-central1-a"]
-  nat          = var.vm_resource[0].public_ip
+  public_ip    = var.vm_resource[0].public_ip
   image_family = "centos-7"
 
   metadata = {
@@ -36,7 +36,6 @@ module "random_vm" {
   labels = { project = "monitoring" }
 }
 
-/*
 module "test-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
   env_name       = "vector"
@@ -55,7 +54,6 @@ module "test-vm" {
   labels = { project = "marketing" }
 
 }
-*/
 
 module "example-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"

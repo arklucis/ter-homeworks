@@ -1,4 +1,4 @@
-variable "env_name" {
+variable "vm_name" {
   type    = string
   default = null
 }
@@ -24,10 +24,9 @@ variable "subnet_id" {
   default = null
 }
 
-variable "nat" {
-  description = "Whether to assign a public IP to the instance."
-  type        = bool
-  default     = null
+variable "public_ip" {
+  type    = bool
+  default = null
 }
 
 variable "user_data" {
@@ -51,9 +50,9 @@ variable "vm_resource" {
     public_ip   = bool
     platform    = string
     preemptible = bool
-    vm_name     = string
-    cores       = number
-    memory      = number
+    #vm_name     = string
+    cores  = number
+    memory = number
     #disk          = number
     core_fraction = number
     count         = number
@@ -63,9 +62,9 @@ variable "vm_resource" {
       public_ip   = true
       platform    = "standard-v1"
       preemptible = true
-      vm_name     = "lighthouse"
-      cores       = 2
-      memory      = 4
+      #vm_name     = "ligthouse"
+      cores  = 2
+      memory = 4
       #disk          = number
       core_fraction = 20
       count         = 1

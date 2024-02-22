@@ -11,9 +11,9 @@ data "yandex_compute_image" "my_image" {
   family = var.image_family
 }
 
-resource "yandex_compute_instance" "lighthouse" {
+resource "yandex_compute_instance" "vm" {
   count       = var.vm_resource[0].count
-  name        = "${var.vm_resource[0].vm_name}-${var.vm_resource[0].count + 1}"
+  name        = "${var.vm_name}-${count.index + 1}"
   platform_id = "standard-v1"
 
   resources {
