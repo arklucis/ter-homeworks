@@ -45,6 +45,11 @@ variable "metadata" {
   type        = map(string)
 }
 
+variable "instance_count" {
+  type    = number
+  default = 1
+}
+
 variable "vm_resource" {
   type = list(object({
     public_ip   = bool
@@ -55,7 +60,7 @@ variable "vm_resource" {
     memory = number
     #disk          = number
     core_fraction = number
-    count         = number
+    #count         = number
   }))
   default = [
     {
@@ -67,7 +72,7 @@ variable "vm_resource" {
       memory = 4
       #disk          = number
       core_fraction = 20
-      count         = 1
+      #count         = 2
 
     }
   ]

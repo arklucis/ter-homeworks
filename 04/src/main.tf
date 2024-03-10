@@ -21,12 +21,13 @@ data "yandex_compute_image" "centos-7" {
 }
 
 module "random_vm" {
-  source       = "./local_modules/random_vm/"
-  vm_name      = "ligthouse"
-  subnet_id    = [module.my_vpc.subnet_id]
-  subnet_zones = ["ru-central1-a"]
-  public_ip    = var.vm_resource[0].public_ip
-  image_family = "centos-7"
+  source         = "./local_modules/random_vm/"
+  vm_name        = "vm"
+  subnet_id      = [module.my_vpc.subnet_id]
+  subnet_zones   = ["ru-central1-a"]
+  public_ip      = var.vm_resource[0].public_ip
+  image_family   = "centos-7"
+  instance_count = 0
 
   metadata = {
     user-data          = data.template_file.cloudinit.rendered
@@ -38,7 +39,7 @@ module "random_vm" {
 
 module "test-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
-  env_name       = "vector"
+  env_name       = "sonar"
   network_id     = module.my_vpc.vpc_id #yandex_vpc_network.develop.id
   subnet_zones   = ["ru-central1-a"]
   subnet_ids     = [module.my_vpc.subnet_id] #[yandex_vpc_subnet.develop.id]
@@ -57,7 +58,7 @@ module "test-vm" {
 
 module "example-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
-  env_name       = "clickhouse"
+  env_name       = "nexus"
   network_id     = module.my_vpc.vpc_id #yandex_vpc_network.develop.id
   subnet_zones   = ["ru-central1-a"]
   subnet_ids     = [module.my_vpc.subnet_id] #[yandex_vpc_subnet.develop.id]
