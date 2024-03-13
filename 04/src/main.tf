@@ -39,7 +39,7 @@ module "random_vm" {
 
 module "test-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
-  env_name       = "sonar"
+  env_name       = "jenkins-master"
   network_id     = module.my_vpc.vpc_id #yandex_vpc_network.develop.id
   subnet_zones   = ["ru-central1-a"]
   subnet_ids     = [module.my_vpc.subnet_id] #[yandex_vpc_subnet.develop.id]
@@ -58,7 +58,7 @@ module "test-vm" {
 
 module "example-vm" {
   source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
-  env_name       = "nexus"
+  env_name       = "jenkins-agent"
   network_id     = module.my_vpc.vpc_id #yandex_vpc_network.develop.id
   subnet_zones   = ["ru-central1-a"]
   subnet_ids     = [module.my_vpc.subnet_id] #[yandex_vpc_subnet.develop.id]
