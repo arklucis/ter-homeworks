@@ -14,6 +14,7 @@ data "yandex_compute_image" "my_image" {
 resource "yandex_compute_instance" "vm" {
   count       = var.instance_count #var.vm_resource[0].count
   name        = "${var.vm_name}-${count.index + 1}"
+  hostname    = "${var.vm_name}-${count.index + 1}"
   platform_id = "standard-v1"
 
   resources {

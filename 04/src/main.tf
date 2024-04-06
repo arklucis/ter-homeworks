@@ -22,19 +22,19 @@ data "yandex_compute_image" "centos-7" {
 
 module "random_vm" {
   source         = "./local_modules/random_vm/"
-  vm_name        = "vm"
+  vm_name        = "nginx"
   subnet_id      = [module.my_vpc.subnet_id]
   subnet_zones   = ["ru-central1-a"]
   public_ip      = var.vm_resource[0].public_ip
-  image_family   = "centos-7"
-  instance_count = 0
+  image_family   = "ubuntu-2004-lts"
+  instance_count = 1
 
   metadata = {
     user-data          = data.template_file.cloudinit.rendered
     serial-port-enable = 1
   }
 
-  labels = { project = "monitoring" }
+  labels = { project = "web" }
 }
 
 module "test-vm" {

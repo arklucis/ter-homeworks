@@ -10,3 +10,6 @@ package_upgrade: false
 packages:
   - nano
   - telnet
+
+runcmd:
+  - if hostname | grep -q "^nginx-"; then apt-get update && apt-get install -y nginx; fi

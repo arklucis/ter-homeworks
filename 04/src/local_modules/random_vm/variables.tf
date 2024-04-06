@@ -37,7 +37,7 @@ variable "user_data" {
 
 variable "image_family" {
   type    = string
-  default = "centos-7"
+  default = "null"
 }
 
 variable "metadata" {
