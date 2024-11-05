@@ -5,7 +5,7 @@ users:
     shell: /bin/bash
     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
     ssh_authorized_keys: ${ssh_public_key}
-package_update: true
+package_update: false
 package_upgrade: false
 packages:
   - nano
@@ -13,3 +13,5 @@ packages:
 
 runcmd:
   - if hostname | grep -q "^nginx-"; then apt-get update && apt-get install -y nginx; fi
+  - if hostname | grep -q "^ha-proxy-"; then apt-get update && apt-get install -y haproxy; fi
+  - if hostname | grep -q "^kubernetes-"; then apt-get update && apt-get install -y snapd && snap install microk8s --classic && usermod -a -G microk8s root; fi

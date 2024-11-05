@@ -23,22 +23,38 @@ variable "default_zone" {
   description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
 }
 
-/*
+
 variable "default_cidr" {
   type        = list(string)
-  default     = ["10.0.1.0/24"]
+  default     = ["192.168.10.0/24"]
+  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
+}
+
+variable "default_cidr2" {
+  type        = list(string)
+  default     = ["192.168.20.0/24"]
   description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
 }
 
 variable "vpc_name" {
   type        = string
-  default     = "develop"
+  default     = "prod_vpc"
   description = "VPC network&subnet name"
 }
-*/
+
+variable "subnet_name1" {
+  type        = string
+  default     = "public"
+  description = "subnet name"
+}
+
+variable "subnet_name2" {
+  type        = string
+  default     = "private"
+  description = "subnet name"
+}
 
 ###common vars
-
 variable "vms_ssh_root_key" {
   type        = string
   default     = "/root/.ssh/id_ed25519.pub"

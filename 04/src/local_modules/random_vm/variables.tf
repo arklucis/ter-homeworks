@@ -69,7 +69,7 @@ variable "vm_resource" {
       preemptible = true
       #vm_name     = "ligthouse"
       cores  = 2
-      memory = 4
+      memory = 2
       #disk          = number
       core_fraction = 20
       #count         = 2

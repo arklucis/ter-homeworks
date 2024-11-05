@@ -35,7 +35,7 @@ resource "yandex_compute_instance" "vm" {
 
   network_interface {
     subnet_id = element(var.subnet_id, count.index)
-    nat       = var.vm_resource[0].public_ip
+    nat       = var.public_ip == true ? true : false # nat       = var.vm_resource[0].public_ip
   }
 
   metadata = {
