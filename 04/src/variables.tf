@@ -42,6 +42,12 @@ variable "vpc_name" {
   description = "VPC network&subnet name"
 }
 
+variable "vm_user" {
+  type    = string
+  default = "root"
+}
+
+
 variable "subnet_name1" {
   type        = string
   default     = "public"
@@ -77,6 +83,16 @@ variable "vm_resource" {
   ]
 }
 
+variable "user_data" {
+  description = "Cloud-init user-data"
+  type        = string
+  default     = <<-EOF
+    #!/bin/bash
+    sudo -i mkdir -p /home/ubuntu/test/
+  EOF
+}
+
+
 
 /*
 ###example vm_web var
@@ -99,3 +115,38 @@ variable "metadata" {
   type = map(string)
 }
 */
+
+
+
+
+# write_files:
+#   - path: /run/index.html
+#     content: |
+#       <h1>Welcome to the LAMP server</h1>
+#       <p>Image from S3 Bucket:</p>
+#       <img src="${bucket_url}" alt="Image">
+
+# users:
+#   - name: ubuntu
+#     groups: sudo
+#     shell: /bin/bash
+#     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+#     ssh_authorized_keys: ${ssh_public_key}
+# runcmd:
+#   - if hostname | grep -q "^nginx-"; then apt-get update && apt-get install -y nginx; fi
+#   - if hostname | grep -q "^ha-proxy-"; then apt-get update && apt-get install -y haproxy; fi
+#   - if hostname | grep -q "^kubernetes-"; then apt-get update && apt-get install -y snapd && snap install microk8s --classic && usermod -a -G microk8s root; fi
+#   - echo "<h1>Welcome to the LAMP server</h1>" > /var/www/html/index.html
+#   - echo "<p>Image from S3 Bucket:</p>" >> /var/www/html/index.html
+#   - echo "<img src='http://BUCKET_URL_PLACEHOLDER/IMAGE_KEY_PLACEHOLDER' alt='Image'>" >> /var/www/html/index.html
+
+
+# data "template_file" "cloudinit" {
+#   template = file("./cloud-init.yml")
+#   # vars = {
+#   #   ssh_public_key = file(var.vms_ssh_root_key)
+#   # bucket_url     = "https://${yandex_storage_bucket.bucket.bucket}.storage.yandexcloud.net/${yandex_storage_object.bucket_object.key}"
+# }
+# # }
+
+# - echo "<img src='https://${yandex_storage_bucket.bucket.bucket}.storage.yandexcloud.net/${yandex_storage_object.bucket_object.key}' alt='Image' width='1920' height='1080'>" >> /var/www/html/index.html
