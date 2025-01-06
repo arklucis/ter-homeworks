@@ -126,6 +126,5 @@ data "template_file" "cloudinit" {
   template = file("./cloud-init.yml")
   vars = {
     ssh_public_key = file(var.vms_ssh_root_key)
-    bucket_url     = "https://${yandex_storage_bucket.bucket.bucket}.storage.yandexcloud.net/${yandex_storage_object.bucket_object.key}"
   }
 }

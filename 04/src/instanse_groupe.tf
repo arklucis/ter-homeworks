@@ -1,4 +1,4 @@
-# Чтение и извлечение service_account_id из файла JSON
+#Чтение и извлечение service_account_id из файла JSON
 locals {
   authorized_key     = jsondecode(file("~/authorized_key.json"))
   service_account_id = local.authorized_key["service_account_id"]
@@ -22,7 +22,7 @@ resource "yandex_compute_instance_group" "group1" {
       mode = "READ_WRITE"
       initialize_params {
         image_id = "fd827b91d99psvq5fjit"
-        size     = 4
+        size     = 0
       }
     }
 
@@ -54,7 +54,7 @@ resource "yandex_compute_instance_group" "group1" {
         sudo: ['ALL=(ALL) NOPASSWD:ALL']
         ssh-authorized-keys:
           - ${file("~/.ssh/id_ed25519.pub")}
-    
+
     runcmd:
       - echo "<h1>Welcome to the LAMP server</h1>" > /var/www/html/index.html
       - echo "<p>Image from S3 Bucket:</p>" >> /var/www/html/index.html
@@ -65,7 +65,7 @@ resource "yandex_compute_instance_group" "group1" {
 
   scale_policy {
     fixed_scale {
-      size = 1
+      size = 0
     }
   }
 

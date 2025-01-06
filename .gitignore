@@ -13,3 +13,4 @@ personal.auto.tfvars
 
 
 terraform.tfvars
+cloud-init.yml
